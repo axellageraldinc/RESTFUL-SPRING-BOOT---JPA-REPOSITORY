@@ -2,6 +2,7 @@ package com.por.belajarspringboot.service.implementation;
 
 import com.por.belajarspringboot.entity.Person;
 import com.por.belajarspringboot.repository.PersonRepository;
+import com.por.belajarspringboot.request.SavePersonRequest;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -46,7 +47,7 @@ public class PersonServiceImplTest {
         Mockito.when(personRepository.save(Mockito.any(Person.class)))
                 .then(invocation -> invocation.getArguments()[0]);
 
-        Person person = personService.savePerson(new Person("Axell", 20, "Yogyakarta"));
+        Person person = personService.savePerson(new SavePersonRequest("Axell", 20, "Yogyakarta"));
 
         assertEquals("Axell", person.getName());
         assertEquals(20, person.getAge());
@@ -63,7 +64,7 @@ public class PersonServiceImplTest {
     public void savePerson_ReturnFailed(){
         Mockito.when(personRepository.save(Mockito.any(Person.class))).thenThrow(new RuntimeException());
 
-        personService.savePerson(new Person("Axell", 20, "Yogyakarta"));
+        personService.savePerson(new SavePersonRequest("Axell", 20, "Yogyakarta"));
 
     }
 

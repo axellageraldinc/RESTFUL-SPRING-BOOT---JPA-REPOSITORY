@@ -29,7 +29,7 @@ public class PersonControllerTest {
 
     @Test
     public void savePerson_ReturnSuccess(){
-        Mockito.when(personService.savePerson(Mockito.any(Person.class)))
+        Mockito.when(personService.savePerson(Mockito.any(SavePersonRequest.class)))
                 .then(invocation -> invocation.getArguments()[0]);
 
         Person person = personController.savePerson(new SavePersonRequest("Axell", 20, "Yogyakarta"));
@@ -38,7 +38,7 @@ public class PersonControllerTest {
         assertEquals(20, person.getAge());
         assertEquals("Yogyakarta", person.getAddress());
 
-        Mockito.verify(personService, Mockito.times(1)).savePerson(Mockito.any(Person.class));
+        Mockito.verify(personService, Mockito.times(1)).savePerson(Mockito.any(SavePersonRequest.class));
 
     }
 

@@ -22,8 +22,7 @@ public class PersonController {
             consumes = MediaType.APPLICATION_JSON_VALUE //CONTENT-TYPE
     )
     public Person savePerson(@Valid @RequestBody SavePersonRequest request){
-        Person person = new Person(request.getName(), request.getAge(), request.getAddress());
-        return personService.savePerson(person);
+        return personService.savePerson(request);
     }
 
     @GetMapping(
@@ -58,13 +57,7 @@ public class PersonController {
     )
     public Person updatePerson(@PathVariable("id") Long id,
                                @Valid @RequestBody SavePersonRequest request){
-        Person person = personService.getPersonById(id);
-
-        person.setName(request.getName());
-        person.setAge(request.getAge());
-        person.setAddress(request.getAddress());
-
-        return personService.updatePerson(person);
+        return personService.updatePerson(id, request);
     }
 
 }
