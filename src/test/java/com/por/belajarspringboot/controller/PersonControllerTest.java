@@ -2,7 +2,7 @@ package com.por.belajarspringboot.controller;
 
 import com.por.belajarspringboot.entity.Person;
 import com.por.belajarspringboot.request.SavePersonRequest;
-import com.por.belajarspringboot.service.PersonService;
+import com.por.belajarspringboot.service.person.PersonService;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.InjectMocks;

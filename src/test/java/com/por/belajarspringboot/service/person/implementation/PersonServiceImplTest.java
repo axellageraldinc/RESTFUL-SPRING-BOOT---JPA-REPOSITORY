@@ -1,8 +1,10 @@
-package com.por.belajarspringboot.service.implementation;
+package com.por.belajarspringboot.service.person.implementation;
 
 import com.por.belajarspringboot.entity.Person;
+import com.por.belajarspringboot.entity.Vehicle;
 import com.por.belajarspringboot.repository.PersonRepository;
 import com.por.belajarspringboot.request.SavePersonRequest;
+import com.por.belajarspringboot.type.VehicleType;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -47,7 +49,13 @@ public class PersonServiceImplTest {
         Mockito.when(personRepository.save(Mockito.any(Person.class)))
                 .then(invocation -> invocation.getArguments()[0]);
 
-        Person person = personService.savePerson(new SavePersonRequest("Axell", 20, "Yogyakarta"));
+        Person person;
+
+        person = personService.savePerson(
+                new SavePersonRequest(
+                        "Axell",
+                        20,
+                        "Yogyakarta"));
 
         assertEquals("Axell", person.getName());
         assertEquals(20, person.getAge());
@@ -70,9 +78,13 @@ public class PersonServiceImplTest {
 
     @Test
     public void getAll_ReturnSuccess(){
-        Mockito.when(personRepository.findAll()).thenReturn(Mockito.anyListOf(Person.class));
+        List<Person> personList = new ArrayList<>();
 
-        List<Person> personList = personService.getAllPerson();
+        personList.add(new Person("Axell", 20, "Yogyakarta"));
+
+        Mockito.when(personRepository.findAll()).thenReturn(personList);
+
+        personList = personService.getAllPerson();
 
         assertNotNull(personList);
         assertEquals(personList.isEmpty(), false);

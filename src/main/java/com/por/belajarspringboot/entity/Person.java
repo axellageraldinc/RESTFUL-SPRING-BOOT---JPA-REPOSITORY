@@ -1,6 +1,10 @@
 package com.por.belajarspringboot.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "person")
@@ -8,6 +12,7 @@ public class Person {
 
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "name", nullable = false)
@@ -18,6 +23,10 @@ public class Person {
 
     @Column(name = "address") //default nullable = true
     private String address;
+
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<Vehicle> vehicleList = new ArrayList<>();
 
     public Person() {
     }
@@ -58,5 +67,13 @@ public class Person {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public List<Vehicle> getVehicleList() {
+        return vehicleList;
+    }
+
+    public void setVehicleList(List<Vehicle> vehicleList) {
+        this.vehicleList = vehicleList;
     }
 }

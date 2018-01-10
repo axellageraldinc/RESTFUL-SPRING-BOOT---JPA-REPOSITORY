@@ -1,9 +1,9 @@
-package com.por.belajarspringboot.service.implementation;
+package com.por.belajarspringboot.service.person.implementation;
 
 import com.por.belajarspringboot.entity.Person;
 import com.por.belajarspringboot.repository.PersonRepository;
 import com.por.belajarspringboot.request.SavePersonRequest;
-import com.por.belajarspringboot.service.PersonService;
+import com.por.belajarspringboot.service.person.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

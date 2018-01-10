@@ -1,7 +1,10 @@
 package com.por.belajarspringboot.request;
 
+import com.por.belajarspringboot.entity.Vehicle;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+
+import java.util.List;
 
 public class SavePersonRequest {
 

@@ -2,7 +2,7 @@ package com.por.belajarspringboot.controller;
 
 import com.por.belajarspringboot.entity.Person;
 import com.por.belajarspringboot.request.SavePersonRequest;
-import com.por.belajarspringboot.service.PersonService;
+import com.por.belajarspringboot.service.person.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -11,13 +11,14 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/person")
 public class PersonController {
 
     @Autowired
     private PersonService personService;
 
-    @PostMapping(
-            value = "/person",
+    @RequestMapping(
+            method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE, //ACCEPT
             consumes = MediaType.APPLICATION_JSON_VALUE //CONTENT-TYPE
     )
@@ -25,16 +26,17 @@ public class PersonController {
         return personService.savePerson(request);
     }
 
-    @GetMapping(
-            value = "/person",
+    @RequestMapping(
+            method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public List<Person> getAllPerson(){
         return personService.getAllPerson();
     }
 
-    @GetMapping(
-            value = "/person/{id}",
+    @RequestMapping(
+            value = "/{id}",
+            method = RequestMethod.GET,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -42,16 +44,18 @@ public class PersonController {
         return personService.getPersonById(id);
     }
 
-    @DeleteMapping(
-            value = "/person/{id}",
+    @RequestMapping(
+            value = "/{id}",
+            method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public void deletePerson(@PathVariable("id") Long id){
         personService.deletePersonById(id);
     }
 
-    @PutMapping(
-            value = "/person/{id}",
+    @RequestMapping(
+            value = "/{id}",
+            method = RequestMethod.PUT,
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )

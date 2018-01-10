@@ -1,4 +1,4 @@
-package com.por.belajarspringboot.service;
+package com.por.belajarspringboot.service.person;
 
 import com.por.belajarspringboot.entity.Person;
 import com.por.belajarspringboot.request.SavePersonRequest;
