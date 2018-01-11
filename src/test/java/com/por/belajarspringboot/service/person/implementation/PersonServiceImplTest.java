@@ -84,13 +84,31 @@ public class PersonServiceImplTest {
 
         Mockito.when(personRepository.findAll()).thenReturn(personList);
 
-        personList = personService.getAllPerson();
+        List<Person> personFromDb = personService.getAllPerson();
 
         assertNotNull(personList);
         assertEquals(personList.isEmpty(), false);
+        assertEquals(personList, personFromDb);
 
         Mockito.verify(personRepository, Mockito.times(1))
                 .findAll();
+    }
+
+    @Test
+    public void getPersonById_ReturnSuccess(){
+
+        Person person = new Person();
+        person.setId(1L);
+        person.setName("Axell");
+        person.setAddress("Yogyakarta");
+
+        Mockito.when(personRepository.findOne(1L)).thenReturn(person);
+
+        Person personFromDb = personService.getPersonById(1L);
+
+        assertEquals(person, personFromDb);
+
+        Mockito.verify(personRepository, Mockito.times(1)).findOne(1L);
     }
 
 }

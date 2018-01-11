@@ -24,10 +24,6 @@ public class Person {
     @Column(name = "address") //default nullable = true
     private String address;
 
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
-    @JsonBackReference
-    private List<Vehicle> vehicleList = new ArrayList<>();
-
     public Person() {
     }
 
@@ -67,13 +63,5 @@ public class Person {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public List<Vehicle> getVehicleList() {
-        return vehicleList;
-    }
-
-    public void setVehicleList(List<Vehicle> vehicleList) {
-        this.vehicleList = vehicleList;
     }
 }

@@ -15,10 +15,12 @@ public class Vehicle {
     @Column(name = "vehicle_type")
     private VehicleType vehicleType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "person_id")
-    @JsonManagedReference
     private Person person;
+
+    public Vehicle() {
+    }
 
     public Vehicle(Person person, VehicleType vehicleType) {
         this.person = person;

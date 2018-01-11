@@ -10,6 +10,7 @@ public class SaveVehicleRequest {
 
     public SaveVehicleRequest() {
     }
+
     public SaveVehicleRequest(VehicleType vehicleType) {
         this.vehicleType = vehicleType;
     }

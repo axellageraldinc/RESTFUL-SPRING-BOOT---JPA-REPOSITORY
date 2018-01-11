@@ -11,7 +11,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/person")
+@RequestMapping(value = "/api/person")
 public class PersonController {
 
     @Autowired
@@ -37,7 +37,6 @@ public class PersonController {
     @RequestMapping(
             value = "/{id}",
             method = RequestMethod.GET,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Person getOnePerson(@PathVariable("id") Long id){
