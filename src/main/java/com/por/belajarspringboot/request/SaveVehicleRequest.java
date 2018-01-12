@@ -1,25 +1,21 @@
 package com.por.belajarspringboot.request;
 
-import com.por.belajarspringboot.entity.Person;
-import com.por.belajarspringboot.type.VehicleType;
-import org.hibernate.validator.constraints.NotBlank;
-
 public class SaveVehicleRequest {
 
-    private VehicleType vehicleType;
+    private String vehicle;
 
     public SaveVehicleRequest() {
     }
 
-    public SaveVehicleRequest(VehicleType vehicleType) {
-        this.vehicleType = vehicleType;
+    public SaveVehicleRequest(String vehicle) {
+        this.vehicle = vehicle;
     }
 
-    public VehicleType getVehicleType() {
-        return vehicleType;
+    public String getVehicle() {
+        return vehicle;
     }
 
-    public void setVehicleType(VehicleType vehicleType) {
-        this.vehicleType = vehicleType;
+    public void setVehicle(String vehicle) {
+        this.vehicle = vehicle;
     }
 }

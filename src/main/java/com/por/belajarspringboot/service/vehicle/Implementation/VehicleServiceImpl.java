@@ -23,7 +23,7 @@ public class VehicleServiceImpl implements VehicleService {
         Person person = new Person();
         person.setId(personId);
 
-        Vehicle vehicle = new Vehicle(person, request.getVehicleType());
+        Vehicle vehicle = new Vehicle(person, request.getVehicle());
         return vehicleRepository.save(vehicle);
     }
 
@@ -45,7 +45,7 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public Vehicle updateVehicle(Long personId, Long vehicleId, SaveVehicleRequest request) {
         Vehicle vehicle = vehicleRepository.findByPersonIdAndId(personId, vehicleId);
-        vehicle.setVehicleType(request.getVehicleType());
+        vehicle.setVehicle(request.getVehicle());
         return vehicleRepository.save(vehicle);
     }
 }

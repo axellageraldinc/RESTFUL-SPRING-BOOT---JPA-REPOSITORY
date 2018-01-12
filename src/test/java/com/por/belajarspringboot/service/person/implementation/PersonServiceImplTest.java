@@ -1,10 +1,8 @@
 package com.por.belajarspringboot.service.person.implementation;
 
 import com.por.belajarspringboot.entity.Person;
-import com.por.belajarspringboot.entity.Vehicle;
 import com.por.belajarspringboot.repository.PersonRepository;
 import com.por.belajarspringboot.request.SavePersonRequest;
-import com.por.belajarspringboot.type.VehicleType;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.InjectMocks;

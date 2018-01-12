@@ -1,8 +1,5 @@
 package com.por.belajarspringboot.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.por.belajarspringboot.type.VehicleType;
-
 import javax.persistence.*;
 
 @Entity
@@ -12,8 +9,8 @@ public class Vehicle {
     @GeneratedValue
     private Long id;
 
-    @Column(name = "vehicle_type")
-    private VehicleType vehicleType;
+    @Column(name = "vehicle")
+    private String vehicle;
 
     @ManyToOne
     @JoinColumn(name = "person_id")
@@ -22,9 +19,9 @@ public class Vehicle {
     public Vehicle() {
     }
 
-    public Vehicle(Person person, VehicleType vehicleType) {
+    public Vehicle(Person person, String vehicle) {
         this.person = person;
-        this.vehicleType = vehicleType;
+        this.vehicle = vehicle;
     }
 
     public Long getId() {
@@ -35,12 +32,12 @@ public class Vehicle {
         this.id = id;
     }
 
-    public VehicleType getVehicleType() {
-        return vehicleType;
+    public String getVehicle() {
+        return vehicle;
     }
 
-    public void setVehicleType(VehicleType vehicleType) {
-        this.vehicleType = vehicleType;
+    public void setVehicle(String vehicle) {
+        this.vehicle = vehicle;
     }
 
     public Person getPerson() {
