@@ -5,6 +5,10 @@ import com.por.belajarspringboot.repository.PersonRepository;
 import com.por.belajarspringboot.request.SavePersonRequest;
 import com.por.belajarspringboot.service.person.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +17,8 @@ import java.util.List;
 @Service
 @Transactional //supaya kalau ada pengubahan data di database yg gagal, akan rollback
 public class PersonServiceImpl implements PersonService {
+
+    private static final int PAGE_SIZE = 3;
 
     @Autowired
     private PersonRepository personRepository;
@@ -26,8 +32,11 @@ public class PersonServiceImpl implements PersonService {
     //Gak terlalu butuh transactional karena kan gak ada perubahan data di database, jadi gak terlalu butuh transactional
     @Transactional(readOnly = true)
     @Override
-    public List<Person> getAllPerson() {
-        return personRepository.findAll();
+    public Page<Person> getAllPerson(int pageNumber) {
+        Sort sort = new Sort(new Sort.Order(Sort.Direction.ASC, "name"));
+        Pageable pageable = new PageRequest(pageNumber-1, PAGE_SIZE, sort);
+//        PageRequest pageRequest = new PageRequest(pageNumber-1, PAGE_SIZE, Sort.Direction.ASC, "name"); //sort ASC berdasarkan nama
+        return personRepository.findAll(pageable);
     }
 
     @Transactional(readOnly = true)
@@ -37,8 +46,12 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public void deletePersonById(Long id) {
-        personRepository.delete(id);
+    public Person deletePersonById(Long id) {
+        Person person = personRepository.findOne(id);
+        if(person!=null){
+            personRepository.delete(id);
+        }
+        return person;
     }
 
     @Override

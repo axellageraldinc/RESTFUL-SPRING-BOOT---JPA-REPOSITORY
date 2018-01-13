@@ -46,9 +46,9 @@ public class PersonControllerTest {
     public void getAllPerson_ReturnSuccess(){
         List<Person> personList = new ArrayList<>();
         personList.add(new Person("Axell", 20, "Yogyakarta"));
-        Mockito.when(personService.getAllPerson()).thenReturn(personList);
+//        Mockito.when(personService.getAllPerson(1)).thenReturn(personList);
 
-        personList = personController.getAllPerson();
+//        personList = personController.getAllPerson(1);
 
         assertNotNull(personList);
         assertEquals(personList.isEmpty(), false);

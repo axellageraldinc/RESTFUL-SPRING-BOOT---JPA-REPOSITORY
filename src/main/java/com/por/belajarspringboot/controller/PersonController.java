@@ -4,6 +4,7 @@ import com.por.belajarspringboot.entity.Person;
 import com.por.belajarspringboot.request.SavePersonRequest;
 import com.por.belajarspringboot.service.person.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,8 +31,8 @@ public class PersonController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public List<Person> getAllPerson(){
-        return personService.getAllPerson();
+    public Page<Person> getAllPerson(@RequestParam(name = "page", defaultValue = "1") int pageNumber){
+        return personService.getAllPerson(pageNumber);
     }
 
     @RequestMapping(
@@ -48,8 +49,8 @@ public class PersonController {
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public void deletePerson(@PathVariable("id") Long id){
-        personService.deletePersonById(id);
+    public Person deletePerson(@PathVariable("id") Long id){
+        return personService.deletePersonById(id);
     }
 
     @RequestMapping(
