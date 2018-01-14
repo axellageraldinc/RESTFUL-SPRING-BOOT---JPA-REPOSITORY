@@ -2,13 +2,19 @@ package com.por.belajarspringboot.request;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 public class SavePersonRequest {
 
-    @NotBlank
-    @Length(max = 30)
+    @NotBlank(message = "Name cannot be empty!")
+    @Length(max = 30, message = "Name too long! Max 30 characters")
     private String name;
 
+    @NotNull(message = "Age cannot be empty!")
+    @Min(value = 0, message = "Minimum age value is 0!")
     private int age;
 
     private String address;
