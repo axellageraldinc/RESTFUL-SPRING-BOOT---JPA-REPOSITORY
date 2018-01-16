@@ -38,8 +38,12 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public void deleteVehicle(Long personId, Long vehicleId) {
-        vehicleRepository.deleteByPersonIdAndId(personId, vehicleId);
+    public Vehicle deleteVehicle(Long personId, Long vehicleId) {
+        Vehicle vehicle = vehicleRepository.findByPersonIdAndId(personId, vehicleId);
+        if(vehicle != null) {
+            vehicleRepository.deleteByPersonIdAndId(personId, vehicleId);
+        }
+        return vehicle;
     }
 
     @Override

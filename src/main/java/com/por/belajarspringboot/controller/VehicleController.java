@@ -37,7 +37,8 @@ public class VehicleController {
     }
 
     @RequestMapping(
-            value = "/{vehicleId)",
+            value = "/{vehicleId}",
+            method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Vehicle getOneVehicle(@PathVariable("personId") Long personId,
@@ -50,9 +51,9 @@ public class VehicleController {
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public void deleteVehicle(@PathVariable("personId") Long personId,
+    public Vehicle deleteVehicle(@PathVariable("personId") Long personId,
                               @PathVariable("vehicleId") Long vehicleId){
-        vehicleService.deleteVehicle(personId, vehicleId);
+        return vehicleService.deleteVehicle(personId, vehicleId);
     }
 
     @RequestMapping(
