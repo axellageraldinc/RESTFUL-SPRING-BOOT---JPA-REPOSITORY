@@ -1,26 +1,19 @@
 package com.por.belajarspringboot.request;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class SaveVehicleRequest {
 
-    @NotBlank(message = "Vehicle name cannot be empty!")
-    @Length(max = 30, message = "Vehicle's name too long!")
+    @NotBlank(message = "NotBlank")
+    @Length(max = 30, message = "TooLong")
     private String vehicle;
-
-    public SaveVehicleRequest() {
-    }
-
-    public SaveVehicleRequest(String vehicle) {
-        this.vehicle = vehicle;
-    }
-
-    public String getVehicle() {
-        return vehicle;
-    }
-
-    public void setVehicle(String vehicle) {
-        this.vehicle = vehicle;
-    }
 }

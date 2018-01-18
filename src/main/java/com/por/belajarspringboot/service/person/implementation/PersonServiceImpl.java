@@ -25,7 +25,11 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public Person savePerson(SavePersonRequest request) {
-        Person person = new Person(request.getName(), request.getAge(), request.getAddress());
+        Person person = Person.builder()
+                .name(request.getName())
+                .age(request.getAge())
+                .address(request.getAddress())
+                .build();
         return personRepository.save(person);
     }
 

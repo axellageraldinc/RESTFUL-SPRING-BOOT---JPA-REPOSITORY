@@ -20,10 +20,14 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public Vehicle saveVehicle(Long personId, SaveVehicleRequest request) {
-        Person person = new Person();
-        person.setId(personId);
+        Person person = Person.builder()
+                .id(personId)
+                .build();
 
-        Vehicle vehicle = new Vehicle(person, request.getVehicle());
+        Vehicle vehicle = Vehicle.builder()
+                .person(person)
+                .vehicle(request.getVehicle())
+                .build();
         return vehicleRepository.save(vehicle);
     }
 

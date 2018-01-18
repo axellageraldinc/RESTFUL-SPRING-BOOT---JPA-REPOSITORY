@@ -1,9 +1,18 @@
 package com.por.belajarspringboot.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "vehicle")
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Vehicle {
     @Id
     @GeneratedValue
@@ -15,36 +24,4 @@ public class Vehicle {
     @ManyToOne
     @JoinColumn(name = "person_id")
     private Person person;
-
-    public Vehicle() {
-    }
-
-    public Vehicle(Person person, String vehicle) {
-        this.person = person;
-        this.vehicle = vehicle;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getVehicle() {
-        return vehicle;
-    }
-
-    public void setVehicle(String vehicle) {
-        this.vehicle = vehicle;
-    }
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }
 }
