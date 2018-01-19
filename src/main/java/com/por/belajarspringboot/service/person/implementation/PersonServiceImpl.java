@@ -1,8 +1,11 @@
 package com.por.belajarspringboot.service.person.implementation;
 
 import com.por.belajarspringboot.entity.Person;
+import com.por.belajarspringboot.helper.mapper.PersonMapper;
 import com.por.belajarspringboot.repository.PersonRepository;
 import com.por.belajarspringboot.request.SavePersonRequest;
+import com.por.belajarspringboot.response.WebResponse;
+import com.por.belajarspringboot.response.person.PersonResponse;
 import com.por.belajarspringboot.service.person.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,8 +14,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional //supaya kalau ada pengubahan data di database yg gagal, akan rollback
@@ -24,46 +25,56 @@ public class PersonServiceImpl implements PersonService {
     private PersonRepository personRepository;
 
     @Override
-    public Person savePerson(SavePersonRequest request) {
-        Person person = Person.builder()
-                .name(request.getName())
-                .age(request.getAge())
-                .address(request.getAddress())
-                .build();
-        return personRepository.save(person);
+    public WebResponse<PersonResponse> savePerson(SavePersonRequest request) {
+        Person person = PersonMapper.personRequestToPerson(request);
+        PersonResponse personResponse = PersonMapper.personToPersonResponse(personRepository.save(person));
+        return WebResponse.OK(personResponse);
     }
 
     //Gak terlalu butuh transactional karena kan gak ada perubahan data di database, jadi gak terlalu butuh transactional
     @Transactional(readOnly = true)
     @Override
-    public Page<Person> getAllPerson(int pageNumber) {
+    public WebResponse<Page<PersonResponse>> getAllPerson(int pageNumber) {
         Sort sort = new Sort(new Sort.Order(Sort.Direction.ASC, "name"));
         Pageable pageable = new PageRequest(pageNumber-1, PAGE_SIZE, sort);
-//        PageRequest pageRequest = new PageRequest(pageNumber-1, PAGE_SIZE, Sort.Direction.ASC, "name"); //sort ASC berdasarkan nama
-        return personRepository.findAll(pageable);
+        Page<Person> personPage = personRepository.findAll(pageable);
+        Page<PersonResponse> personResponsePage = PersonMapper.personPageToPersonResponsePage(pageable, personPage);
+        return WebResponse.OK(personResponsePage);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public Person getPersonById(Long id) {
-        return personRepository.findOne(id);
-    }
-
-    @Override
-    public Person deletePersonById(Long id) {
+    public WebResponse<PersonResponse> getPersonById(Long id) {
         Person person = personRepository.findOne(id);
-        if(person!=null){
-            personRepository.delete(id);
+        if(person == null){
+            return WebResponse.NOT_FOUND();
+        } else {
+            return WebResponse.OK(PersonMapper.personToPersonResponse(person));
         }
-        return person;
     }
 
     @Override
-    public Person updatePerson(Long id, SavePersonRequest request) {
+    public WebResponse<PersonResponse> deletePersonById(Long id) {
         Person person = personRepository.findOne(id);
-        person.setName(request.getName());
-        person.setAge(request.getAge());
-        person.setAddress(request.getAddress());
-        return personRepository.save(person);
+        if(person == null){
+            return WebResponse.NOT_FOUND();
+        } else {
+            personRepository.delete(id);
+            return WebResponse.OK(PersonMapper.personToPersonResponse(person));
+        }
     }
+
+    @Override
+    public WebResponse<PersonResponse> updatePerson(Long id, SavePersonRequest request) {
+        Person person = personRepository.findOne(id);
+        if(person == null){
+            return WebResponse.NOT_FOUND();
+        } else {
+            person = PersonMapper.personRequestToPerson(request);
+            person.setId(id);
+            PersonResponse personResponse = PersonMapper.personToPersonResponse(personRepository.save(person));
+            return WebResponse.OK(personResponse);
+        }
+    }
+
 }

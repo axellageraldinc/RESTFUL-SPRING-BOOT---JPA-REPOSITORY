@@ -2,6 +2,8 @@ package com.por.belajarspringboot.controller;
 
 import com.por.belajarspringboot.entity.Person;
 import com.por.belajarspringboot.request.SavePersonRequest;
+import com.por.belajarspringboot.response.WebResponse;
+import com.por.belajarspringboot.response.person.PersonResponse;
 import com.por.belajarspringboot.service.person.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,7 +25,7 @@ public class PersonController {
             produces = MediaType.APPLICATION_JSON_VALUE, //ACCEPT
             consumes = MediaType.APPLICATION_JSON_VALUE //CONTENT-TYPE
     )
-    public Person savePerson(@Valid @RequestBody SavePersonRequest request){
+    public WebResponse<PersonResponse> savePerson(@Valid @RequestBody SavePersonRequest request){
         return personService.savePerson(request);
     }
 
@@ -31,7 +33,7 @@ public class PersonController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Page<Person> getAllPerson(@RequestParam(name = "page", defaultValue = "1") int pageNumber){
+    public WebResponse<Page<PersonResponse>> getAllPerson(@RequestParam(name = "page", defaultValue = "1") int pageNumber){
         return personService.getAllPerson(pageNumber);
     }
 
@@ -40,7 +42,7 @@ public class PersonController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Person getOnePerson(@PathVariable("id") Long id){
+    public WebResponse<PersonResponse> getOnePerson(@PathVariable("id") Long id){
         return personService.getPersonById(id);
     }
 
@@ -49,7 +51,7 @@ public class PersonController {
             method = RequestMethod.DELETE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Person deletePerson(@PathVariable("id") Long id){
+    public WebResponse<PersonResponse> deletePerson(@PathVariable("id") Long id){
         return personService.deletePersonById(id);
     }
 
@@ -59,7 +61,7 @@ public class PersonController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public Person updatePerson(@PathVariable("id") Long id,
+    public WebResponse<PersonResponse> updatePerson(@PathVariable("id") Long id,
                                @Valid @RequestBody SavePersonRequest request){
         return personService.updatePerson(id, request);
     }
